@@ -3,7 +3,7 @@ import { db } from './firebaseInit';
 import Nav from './components/nav/Nav';
 import Home from './pages/app/home/Home';
 import SignIn from './pages/app/SignIn/SignIn';
-import SingUp from './pages/app/SignUp/SignUp';
+import SignUp from './pages/app/SignUp/SignUp';
 
 
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
@@ -25,7 +25,7 @@ function App() {
         },
         {
           path:"signup",
-          element: <SingUp/>
+          element: <SignUp/>
         }
       ]
     }
