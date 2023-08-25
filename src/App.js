@@ -1,23 +1,33 @@
-import logo from './logo.svg';
 import './App.css';
+import { db } from './firebaseInit';
+import Nav from './components/nav/Nav';
+import Home from './pages/app/home/Home';
+import Login from './pages/app/SignIn/SignIn';
+
+
+import {createBrowserRouter, RouterProvider} from "react-router-dom";
+// import { Children } from 'react';
 
 function App() {
+  const browserRouter = createBrowserRouter([
+    {
+      path: "/",
+      element: <Nav/>,
+      children: [
+        {
+          index: true,
+          element: <Home/>
+        },
+        {
+          path:"login",
+          element: <Login/>
+        }
+      ]
+    }
+  ])
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     <RouterProvider router={browserRouter}/>
     </div>
   );
 }
