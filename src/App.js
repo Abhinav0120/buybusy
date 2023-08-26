@@ -5,7 +5,6 @@ import Home from './pages/app/home/Home';
 import SignIn from './pages/app/SignIn/SignIn';
 import SignUp from './pages/app/SignUp/SignUp';
 
-
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 // import { Children } from 'react';
 
