@@ -13,7 +13,7 @@ function Card(){
                         <p>Fjallraven - Foldsack No. 1 Backpac...</p>
                     </div>
                     <div className={styles.productPrice}>
-                        <p>&#x20b9 1099</p>
+                        <p>&#x20b9; 1099</p>
                     </div>
                     <button className={styles.addToCartButton} title="Add to Cart">
                         Add to Cart
