@@ -1,5 +1,5 @@
 import styles from "./Home.module.css";
-import Aside from "../../../components/aside/Aside";
+import Aside from "../../../components/homeAside/Aside";
 import Card from "../../../components/card/Card";
 function Home({props}){
     return(

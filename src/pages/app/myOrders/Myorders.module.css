@@ -1,0 +1,46 @@
+.ordersContainer h1{
+    text-align: center;
+}
+
+.tableContainer{
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.tableContainer h2{
+    color: #224957;
+    font-size: 1.25em;
+    font-weight: 700;
+}
+
+.orderTable{
+    border: none;
+    margin: 0 auto 4rem;
+    position: relative;
+    width: 50%;
+}
+
+.orderTable tr{
+    background-color: #d9d9d936;
+}
+
+tr th{
+    background-color: #d9d9d936;
+}
+
+.orderTable tr td{
+    border: none;
+    padding: 10px;
+}
+
+.totalPrice{
+    border-top: 2px solid #fff;
+    bottom: -2.5rem;
+    margin-top: 10px;
+    padding-left: 84.85%;
+    position: absolute;
+    right: 0;
+    text-align: right;
+    /* width: 100%; */
+    width: 14.9%;
+}
