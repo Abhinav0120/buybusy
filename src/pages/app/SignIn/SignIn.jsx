@@ -3,11 +3,14 @@ import styles from "./SignIn.module.css";
 import {Link, useNavigate} from "react-router-dom";
 import { signInWithEmailAndPassword  } from "firebase/auth";
 import { auth } from "../../../firebaseInit";
+import useAuthContext from "../../../context/AuthContext";
 
 function SignIn(){
     const [erro, setError] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    const {dispatch} = useAuthContext();
 
     const navigate = useNavigate();
 
@@ -18,6 +21,7 @@ function SignIn(){
         .then((userCredential) => {
             // Signed in 
             const user = userCredential.user;
+            dispatch({type:"LOGIN", payload:user})
             navigate("/");
             console.log(user);
         })

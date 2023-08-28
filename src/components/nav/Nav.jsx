@@ -1,7 +1,9 @@
 import { NavLink, Outlet } from "react-router-dom";
 import styles from "./Nav.module.css";
+import useAuthContext from "../../context/AuthContext";
 
 function Nav(){
+    const {currentUser, dispatch} = useAuthContext();
     return(
         <>
             <header>
@@ -17,24 +19,40 @@ function Nav(){
                                     <span>Home</span>
                                 </NavLink>
                             </li>
-                            <li className={styles.navItem}>
+                            {currentUser && 
+                                <li className={styles.navItem}>
                                 <NavLink to="/myorders" className={styles.navLink}>
-                                    <img src="https://cdn-icons-png.flaticon.com/128/6815/6815043.png" className={styles.iconStyle} alt="home"/>
+                                    <img src="https://cdn-icons-png.flaticon.com/128/6815/6815043.png" className={styles.iconStyle} alt="My Orders"/>
                                     <span>My orders</span>
                                 </NavLink>
                             </li>
-                            <li className={styles.navItem}>
-                                <NavLink to="/cart" className={styles.navLink}>
-                                    <img src="https://cdn-icons-png.flaticon.com/128/630/630746.png" className={styles.iconStyle} alt="home"/>
-                                    <span>Cart</span>
-                                </NavLink>
-                            </li>
-                            <li className={styles.navItem}>
-                                <NavLink to="/login" className={styles.navLink}>
-                                    <img src="https://cdn-icons-png.flaticon.com/128/6711/6711581.png" className={styles.iconStyle} alt="home"/>
-                                    <span>SignIn</span>
-                                </NavLink>
-                            </li>
+                            }
+
+                            {currentUser &&
+                                <li className={styles.navItem}>
+                                    <NavLink to="/cart" className={styles.navLink}>
+                                        <img src="https://cdn-icons-png.flaticon.com/128/630/630746.png" className={styles.iconStyle} alt="Cart"/>
+                                        <span>Cart</span>
+                                    </NavLink>
+                                </li>
+                            }
+                            
+                            {currentUser ?
+                                <li className={styles.navItem}>
+                                    <NavLink to="/" className={styles.navLink}
+                                                onClick={()=>dispatch({type:"LOGUOT"})} >
+                                        <img src="https://cdn-icons-png.flaticon.com/128/7756/7756285.png" className={styles.iconStyle} alt="LogOut"/>
+                                        <span>LogOut</span>
+                                    </NavLink>
+                                </li>:
+                                <li className={styles.navItem}>
+                                    <NavLink to="/login" className={styles.navLink}>
+                                        <img src="https://cdn-icons-png.flaticon.com/128/6711/6711581.png" className={styles.iconStyle} alt="SingIn"/>
+                                        <span>SignIn</span>
+                                    </NavLink>
+                                </li>
+                            }
+                            
                         </ul>
                     </div>
                 </nav>
@@ -75,3 +93,9 @@ export default Nav;
 // https://cdn-icons-png.flaticon.com/128/10703/10703059.png
 // https://cdn-icons-png.flaticon.com/128/10695/10695233.png
 // https://t3.ftcdn.net/jpg/00/73/10/64/240_F_73106428_Q91LNUigg4ZRIi1ItxIcgEzyW8C9yluE.jpg
+
+// logout
+// https://cdn-icons-png.flaticon.com/128/7756/7756285.png
+// https://cdn-icons-png.flaticon.com/128/4400/4400828.png
+// https://cdn-icons-png.flaticon.com/128/1300/1300674.png
+// https://cdn-icons-png.flaticon.com/128/4034/4034229.png

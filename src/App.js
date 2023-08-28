@@ -6,11 +6,15 @@ import SignIn from './pages/app/SignIn/SignIn';
 import SignUp from './pages/app/SignUp/SignUp';
 import Cart from './pages/app/cart/Cart';
 import MyOrders from './pages/app/myOrders/MyOrders';
+import useAuthContext from './context/AuthContext';
 
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 // import { Children } from 'react';
 
 function App() {
+  const {currentUser} = useAuthContext();
+
+  console.log(currentUser);
   const browserRouter = createBrowserRouter([
     {
       path: "/",
