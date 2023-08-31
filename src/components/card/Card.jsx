@@ -49,6 +49,28 @@ function Card({product, visiblePage, quantity}){
           }
     } 
 
+    const handleDecreaseQuntity = async (product)=>{
+      try{
+        const cartRef = doc(db, "carts", currentUser.uid);
+        const cartSnapshot = await getDoc(cartRef);
+
+        if(cartSnapshot.exists()){
+          const cartData = cartSnapshot.data();
+          const existingCartItem = cartData.items.find(item=>item.product.id ===product.id);
+          if(existingCartItem){
+            const updatedItems = cartData.items.map(item =>
+              item.product.id === product.id ? { ...item, quantity: item.quantity - 1 } : item
+            );
+            
+            await setDoc(cartRef, { items: updatedItems }, { merge: true });
+          }
+          
+        }
+      } catch(error){
+        console.log("Error addding product to cart:", error);
+      }
+    }
+
     const handleRemoveFromCart = async (product)=>{
       if (currentUser === null) {
           navigate("/login");
@@ -91,7 +113,9 @@ function Card({product, visiblePage, quantity}){
                         <p>&#x20b9; {product.price}</p>
                         {visiblePage==="cart"&&
                         <div className={styles.productQuntityContainer}>
-                          <img  src="https://cdn-icons-png.flaticon.com/128/11519/11519974.png"></img>
+                          <img  src="https://cdn-icons-png.flaticon.com/128/11519/11519974.png"
+                                alt="minus"
+                                onClick={()=>handleDecreaseQuntity(product)}></img>
                           <span style={{fontWeight:"600", margin:"5px"}}>{quantity}</span>
                           <img  src="https://cdn-icons-png.flaticon.com/128/1828/1828817.png"></img>
                         </div>}
