@@ -12,15 +12,15 @@ function Cart(){
     const {currentUser} = useAuthContext();
     useEffect(()=>{
         const unsub = onSnapshot(doc(db, "carts", currentUser.uid), (snapshot) => {
-            // const source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-            // console.log(source, " data: ", doc.data());
             const source = snapshot.metadata.hasPendingWrites ? "Local" : "Server";
-            // console.log(source, " data: ", snapshot.data());
-            // console.log(snapshot.data().items);
             const data = snapshot.data();
-            console.log(data.items);
-            
-            setCart(data.items);
+            if(data){
+                // if(data.items.length!==0){
+                    console.log(data.items);
+                setCart(data.items);
+                // }
+            }
+           
         });
         return () => unsub();
 
@@ -30,18 +30,22 @@ function Cart(){
 
     return(
         <>
-            <div className={styles.cartPageContainer}>
-                <CartAside/>
-                <div className={styles.productContainer}>
-                    {cart.map((item)=>{
-                        const product = item.product;
-                        const quantity = item.quantity;
-                        return(
-                            <Card product={product} key={product.docId} quantity={quantity}/>
-                        )
-                    })}
-                </div>
-            </div>
+            {cart.length!==0 ?
+                <div className={styles.cartPageContainer}>
+                    <CartAside/>
+                    <div className={styles.productContainer}>
+                        {cart.map((item)=>{
+                            const product = item.product;
+                            const quantity = item.quantity;
+                            
+                            return(
+    
+                                <Card product={product} key={product&&product.docId} quantity={quantity} visiblePage="cart"/>
+                            )
+                        })}
+                    </div>
+                </div>: 
+            <h1>Cart is Empty!</h1>}
         </>
     )
 }

@@ -35,7 +35,7 @@ function Home({props}){
             </form>
             <div className={styles.productList}>
                 {
-                    products.map((product)=><Card product={product} key={product.docId}/>)
+                    products.map((product)=><Card product={product} key={product.docId} visiblePage="home"/>)
                 }
             </div>
         </div>

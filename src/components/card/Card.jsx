@@ -5,7 +5,7 @@ import { doc, setDoc, updateDoc, getDoc } from "firebase/firestore";
 import { db } from "../../firebaseInit"; 
 
 
-function Card({product}){
+function Card({product, visiblePage, quantity}){
     const {currentUser} = useAuthContext();
     const navigate = useNavigate();
 
@@ -48,6 +48,33 @@ function Card({product}){
             console.error("Error adding product to cart:", error);
           }
     } 
+
+    const handleRemoveFromCart = async (product)=>{
+      if (currentUser === null) {
+          navigate("/login");
+          return;
+      }
+
+      try {
+          const cartRef = doc(db, "carts", currentUser.uid);
+          const cartSnapshot = await getDoc(cartRef);
+
+          if (cartSnapshot.exists()) {
+              const cartData = cartSnapshot.data();
+              const updatedItems = cartData.items.filter(item => item.product.id !== product.id);
+
+              await setDoc(cartRef, { items: updatedItems }, { merge: true });
+
+              console.log("Product removed from cart.");
+          }
+      } catch (error) {
+          console.error("Error removing product from cart:", error);
+      }
+
+    } 
+    
+
+
     return(
         <>
             <div className={styles.productContainer}>
@@ -62,11 +89,25 @@ function Card({product}){
                     </div>
                     <div className={styles.productPrice}>
                         <p>&#x20b9; {product.price}</p>
+                        {visiblePage==="cart"&&
+                        <div className={styles.productQuntityContainer}>
+                          <img  src="https://cdn-icons-png.flaticon.com/128/11519/11519974.png"></img>
+                          <span style={{fontWeight:"600", margin:"5px"}}>{quantity}</span>
+                          <img  src="https://cdn-icons-png.flaticon.com/128/1828/1828817.png"></img>
+                        </div>}
+                        
                     </div>
-                    <button className={styles.addToCartButton} title="Add to Cart"
-                            onClick={()=>handleAddToCart(product)}>
-                        Add to Cart
-                    </button>
+                    {visiblePage==="home"?
+                      <button className={styles.addToCartButton} title="Add to Cart"
+                              onClick={()=>handleAddToCart(product)}>
+                          Add to Cart
+                      </button>:
+                      <button className={styles.removeFromCartButton} title="Remove From Cart"
+                              onClick={()=>handleRemoveFromCart(product)}
+                              >
+                          Remove From Cart
+                      </button>}
+                    
                 </div>
             </div>
            
@@ -75,3 +116,12 @@ function Card({product}){
 }
 
 export default Card;
+
+// minus
+// https://cdn-icons-png.flaticon.com/128/1828/1828899.png
+// https://cdn-icons-png.flaticon.com/128/10308/10308996.png
+// https://cdn-icons-png.flaticon.com/128/11519/11519974.png
+
+// plus
+// https://cdn-icons-png.flaticon.com/128/1828/1828817.png
+// https://cdn-icons-png.flaticon.com/128/4677/4677490.png

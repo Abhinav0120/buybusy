@@ -3,12 +3,15 @@ import {auth} from "../../../firebaseInit";
 import {createUserWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useAuthContext from "../../../context/AuthContext";
 
 
 function SignUp(){
     const [name, setName] = useState();
     const [email, setEmail] = useState();
-    const [password, setPassword] = useState();   
+    const [password, setPassword] = useState();  
+    
+    const {dispatch} = useAuthContext()
     
     const navigate = useNavigate();
 
@@ -18,6 +21,7 @@ function SignUp(){
         .then((userCredential) => {
             // Signed in 
             const user = userCredential.user;
+            dispatch({type:"LOGIN", payload:user});
             console.log(user);
             navigate("/");
             // ...
