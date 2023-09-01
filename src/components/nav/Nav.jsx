@@ -2,8 +2,11 @@ import { NavLink, Outlet } from "react-router-dom";
 import styles from "./Nav.module.css";
 import useAuthContext from "../../context/AuthContext";
 
+
+
 function Nav(){
     const {currentUser, dispatch} = useAuthContext();
+    
     return(
         <>
             <header>
