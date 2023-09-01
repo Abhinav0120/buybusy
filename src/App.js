@@ -21,7 +21,8 @@ function App() {
     const [totalPrice, setTotalPrice] = useState(0);
 
     useEffect(()=>{
-        const unsub = onSnapshot(doc(db, "carts", currentUser.uid), (snapshot) => {
+        if(currentUser!==null){
+          const unsub = onSnapshot(doc(db, "carts", currentUser.uid), (snapshot) => {
             const source = snapshot.metadata.hasPendingWrites ? "Local" : "Server";
             const data = snapshot.data();
             if(data){
@@ -37,8 +38,9 @@ function App() {
            
         });
         return () => unsub();
-
-    },[])
+        }
+        
+    },[currentUser])
 
     console.log(cart);
 
