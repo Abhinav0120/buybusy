@@ -9,15 +9,15 @@ import { collection, getDocs } from "firebase/firestore";
 function Home({props}){
     const [products, setProduct] = useState([]);
     const [nameFilter, setNameFilter] = useState("")
-    // const [priceFilter, setPriceFilter] = useState({ min: 0, max: 750 });
     const [priceFilter, setPriceFilter] = useState(750);
-
     const [categoryFilters, setCategoryFilters] = useState({
-        "men's clothing": false,
-        "women's clothing": false,
+        mensFashion: false,
+        womensFashion: false,
         jewelery: false,
         electronics: false,
     });
+
+    const [defaultCategoryState, setCategotyState] = useState(true);
 
     useEffect(()=>{
         async function fetchProducts(){
@@ -45,12 +45,32 @@ function Home({props}){
     }
 
     const handleCategoryFilterChange = (event)=>{
-        const categoryName = event.target.name;
+       const categoryName = event.target.name;
         setCategoryFilters({
             ...categoryFilters,
             [categoryName]: event.target.checked,
-        })
+        });
+
     }
+
+    useEffect(()=>{
+        let newCategoryState;
+        if (
+            categoryFilters.mensFashion||
+            categoryFilters.womensFashion||
+            categoryFilters.jewelery||
+            categoryFilters.electronics
+        ) {
+            newCategoryState = false;
+        } else {
+            newCategoryState = true;
+        }
+    
+        setCategotyState(newCategoryState);
+        console.log("default catagoryState:",newCategoryState);
+    
+    },[categoryFilters]);
+      
 
     const filteredProducts = products
     .filter((product) => {
@@ -68,22 +88,22 @@ function Home({props}){
         return product.price <= priceFilter;
 
     })
-    // .filter((product) => {
-    //     // Filter by category
-    //     return (
-    //         (categoryFilters["men's clothing"] && product.category === "men's clothing") ||
-    //         (categoryFilters["women's clothing"] && product.category === "women's clothing") ||
-    //         (categoryFilters.jewelery && product.category === "jewelery") ||
-    //         (categoryFilters.electronics && product.category === "electronics")
-    //       );
-    // });
+    .filter((product) => {
+        // Filter by category
+        if(defaultCategoryState){
+            return true;
+        }
+        return (
+          (categoryFilters.mensFashion && product.category=== "men's clothing") ||
+          (categoryFilters.womensFashion && product.category=== "women's clothing") ||
+          (categoryFilters.jewelery && product.category === "jewelery") ||
+          (categoryFilters.electronics && product.category=== "electronics")
+        );
+      });
 
-  
-
-
-    console.log("products:",products);
-    console.log("filteredProduct",filteredProducts);
-    console.log("priceFilter:", priceFilter);
+    // console.log("products:",products);
+    // console.log("filteredProduct",filteredProducts);
+    // console.log("priceFilter:", priceFilter);
     console.log("categoryFilter:", categoryFilters);
 
 
