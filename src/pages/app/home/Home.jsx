@@ -51,6 +51,7 @@ function Home({props}){
         setPriceFilter(Number(event.target.value));
     }
 
+    // function to handle category filter
     const handleCategoryFilterChange = (event)=>{
        const categoryName = event.target.name;
         setCategoryFilters({
@@ -78,7 +79,7 @@ function Home({props}){
     
     },[categoryFilters]);
       
-
+    // Logic for getting filteredProducts
     const filteredProducts = products
     .filter((product) => {
         // Filter by search query
@@ -111,9 +112,7 @@ function Home({props}){
     // console.log("products:",products);
     // console.log("filteredProduct",filteredProducts);
     // console.log("priceFilter:", priceFilter);
-    console.log("categoryFilter:", categoryFilters);
-
-
+    // console.log("categoryFilter:", categoryFilters);
 
     return(
         <>

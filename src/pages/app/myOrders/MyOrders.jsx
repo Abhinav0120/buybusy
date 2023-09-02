@@ -20,11 +20,8 @@ function MyOrders(){
                 console.log(data);
                 if(data){
                     setIsLoading(false);
-
-                    // if(data.items.length!==0){
                     console.log(data.orderList);
                     setOrders(data.orderList);
-                    // }
                 }else{
                     setIsLoading(false);
 
@@ -34,58 +31,55 @@ function MyOrders(){
             });
             return () => unsub();
         };
-        
 
     },[])
+    
     return(
         <>
-                {
-                    isLoading?
-                    <div className={styles.snipperStyle}>
-                        <Spinner radius={100} color={"#333"} stroke={4} visible={true} />
-                    </div>:
+            {
+                isLoading?
+                <div className={styles.snipperStyle}>
+                    <Spinner radius={100} color={"#333"} stroke={4} visible={true} />
+                </div>:
 
-                    <div className={styles.ordersContainer}>
-                    {orders.length>0&& <h1>Your Orders</h1>}
-                    {orders.length>0?
-                        orders.map((order)=>(
-                        <div className={styles.tableContainer} key={order.createdAt.toMillis()}>
-                            {/* <h2>{order.createdAt}</h2> */}
-                            <h2>{new Date(order.createdAt.seconds * 1000).toLocaleDateString()}</h2>
-                            <table className={styles.orderTable}>
-                                <thead>
-                                    <tr>
-                                        <th>Title</th>
-                                        <th>Price</th>
-                                        <th>Quantity</th>
-                                        <th>Total Price</th>
+                <div className={styles.ordersContainer}>
+                {orders.length>0&& <h1>Your Orders</h1>}
+                {orders.length>0?
+                    orders.map((order)=>(
+                    <div className={styles.tableContainer} key={order.createdAt.toMillis()}>
+                        {/* <h2>{order.createdAt}</h2> */}
+                        <h2>{new Date(order.createdAt.seconds * 1000).toLocaleDateString()}</h2>
+                        <table className={styles.orderTable}>
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    order.items.map((item)=>(
+                                    <tr key={item.docId}>
+                                        <td>{item.title}</td>
+                                        <td>&#x20b9; {item.price}</td>
+                                        <td>{item.quantity}</td>
+                                        <td>&#x20b9; {item.totalCartPrice}</td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    {
-                                        order.items.map((item)=>(
-                                        <tr key={item.docId}>
-                                            <td>{item.title}</td>
-                                            <td>&#x20b9; {item.price}</td>
-                                            <td>{item.quantity}</td>
-                                            <td>&#x20b9; {item.totalCartPrice}</td>
-                                        </tr>
-                                        ))
-                                    }
-                                    <tr className={styles.totalPrice}>
-                                        <td>&#x20b9; {order.totalOrderAmount}</td>
-                                    </tr>
-                                </tbody>
-                                
-                            </table>
-                        </div>
-                    )) : <h1 className={styles.noOrderFound}>No orders found</h1>
-                    }
+                                    ))
+                                }
+                                <tr className={styles.totalPrice}>
+                                    <td>&#x20b9; {order.totalOrderAmount}</td>
+                                </tr>
+                            </tbody>
+                            
+                        </table>
                     </div>
+                )) : <h1 className={styles.noOrderFound}>No orders found</h1>
                 }
-            
-                
-         
+                </div>
+            }   
 
         </>
     )

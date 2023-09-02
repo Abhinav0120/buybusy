@@ -16,7 +16,8 @@ function SignIn(){
 
     const navigate = useNavigate();
 
-     const handleLogin = (e)=>{
+    // function to handle login
+    const handleLogin = (e)=>{
         e.preventDefault();
         if(!email||!password){
             toast("Please fill all the Fields. !");
@@ -24,7 +25,7 @@ function SignIn(){
         }
         signInWithEmailAndPassword (auth, email, password)
         .then((userCredential) => {
-            // Signed in 
+        // Signed in 
             const user = userCredential.user;
             dispatch({type:"LOGIN", payload:user});
             navigate("/");
@@ -38,7 +39,7 @@ function SignIn(){
 
             console.log(errorMessage);
         });
-     }
+    }
     return(
        <div className={styles.singInFormContainer}>
         <form onSubmit={handleLogin} className={styles.singInForm}>

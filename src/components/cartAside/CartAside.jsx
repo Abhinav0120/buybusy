@@ -6,17 +6,15 @@ import useAuthContext from "../../context/AuthContext";
 import { Link } from "react-router-dom";
 import {toast} from "react-toastify";
 
-
-
 function CartAside({cart, totalPrice}){
   const {currentUser} = useAuthContext();
 
+    // purches the products in the cart
     const handlePurchase = async () => {
         try {
         const ordersRef = doc(db, "orders", currentUser.uid);
         const ordersSnapshot = await getDoc(ordersRef);
         const ordersData = ordersSnapshot.data() || { orderList: [] };
-        
 
         const newOrder = {
             items: cart.map(item => ({

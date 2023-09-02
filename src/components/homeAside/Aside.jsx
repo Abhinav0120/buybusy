@@ -1,5 +1,5 @@
 import styles from "./Aside.module.css"
-
+// Aside section for filters
 function Aside({
     priceFilter,
     onPriceFilterChange,

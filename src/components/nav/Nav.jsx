@@ -2,8 +2,7 @@ import { NavLink, Outlet } from "react-router-dom";
 import styles from "./Nav.module.css";
 import useAuthContext from "../../context/AuthContext";
 
-
-
+// naviagation menu
 function Nav(){
     const {currentUser, dispatch} = useAuthContext();
     
@@ -67,6 +66,7 @@ function Nav(){
 
 export default Nav;
 
+// Icons Used
 
 // home
 // https://cdn-icons-png.flaticon.com/128/10473/10473299.png

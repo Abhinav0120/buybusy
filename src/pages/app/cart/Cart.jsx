@@ -5,11 +5,6 @@ import useAuthContext from "../../../context/AuthContext";
 import { useEffect } from "react";
 import {toast} from "react-toastify";
 
-// import { useEffect, useState } from "react";
-// import { collection, doc, onSnapshot, setDoc } from "firebase/firestore";
-// import { db } from "../../../firebaseInit";
-
-
 function Cart({cart, totalPrice}){
    
     return(
