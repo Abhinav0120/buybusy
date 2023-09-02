@@ -23,16 +23,16 @@
 
 .signUpInput{
     background: #f4f6f8;
-    border: 1px solid #7064e5;
+    border: 1px solid #382dab;
     border-radius: 10px;
     box-sizing: border-box;
-    color: #7064e5;
+    color: #382dab;
     font-size: 1.2em;
     padding: 12px;
 }
 
 .signUpButton{
-    background: #7064e5;
+    background: #382dab;
     border: none;
     border-radius: 10px;
     box-shadow: 0 4px 4px rgba(0,0,0,.3);

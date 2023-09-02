@@ -57,15 +57,15 @@
     transition: all .3s ease-in-out;
     width: 50%;
     width: 100%;
-    background: #7064e5;
-    border: 1px solid #7064e5;
+    background: #382dab;
+    border: 1px solid #382dab;
     border-radius: 6px;
 }
 
 .addToCartButton:hover{
     background-color: initial;
-    border: 1px solid #7064e5;
-    color: #7064e5;
+    border: 1px solid #382dab;
+    color: #382dab;
     cursor: pointer;
 }
 

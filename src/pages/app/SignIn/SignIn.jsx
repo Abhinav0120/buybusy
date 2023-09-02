@@ -4,6 +4,8 @@ import {Link, useNavigate} from "react-router-dom";
 import { signInWithEmailAndPassword  } from "firebase/auth";
 import { auth } from "../../../firebaseInit";
 import useAuthContext from "../../../context/AuthContext";
+import {toast} from "react-toastify";
+
 
 function SignIn(){
     const [erro, setError] = useState(false);
@@ -16,7 +18,10 @@ function SignIn(){
 
      const handleLogin = (e)=>{
         e.preventDefault();
-
+        if(!email||!password){
+            toast("Please fill all the Fields. !");
+            return;
+        }
         signInWithEmailAndPassword (auth, email, password)
         .then((userCredential) => {
             // Signed in 
@@ -29,6 +34,8 @@ function SignIn(){
             const errorCode = error.code;
             const errorMessage = error.message;
             // ..
+            toast(errorMessage);
+
             console.log(errorMessage);
         });
      }

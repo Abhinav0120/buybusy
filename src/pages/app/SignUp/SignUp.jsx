@@ -1,9 +1,11 @@
 import styles from "./SignUp.module.css";
 import {auth} from "../../../firebaseInit";
-import {createUserWithEmailAndPassword } from "firebase/auth";
+import {createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useAuthContext from "../../../context/AuthContext";
+import {toast} from "react-toastify";
+
 
 
 function SignUp(){
@@ -17,18 +19,28 @@ function SignUp(){
 
     const handleSignUp=(e)=>{
         e.preventDefault();
+        if(!name||!email||!password){
+          toast("Please fill all the Fields. !");
+          return;
+        }
         createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
+        .then(async (userCredential) => {
             // Signed in 
             const user = userCredential.user;
             dispatch({type:"LOGIN", payload:user});
             console.log(user);
             navigate("/");
+            // await updateProfile(user, {
+            //     displayName: name
+            // });
+           
             // ...
         })
         .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
+            toast(errorMessage);
+
             console.log(errorMessage);
             // ..
         });
