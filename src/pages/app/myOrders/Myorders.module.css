@@ -35,13 +35,13 @@ tr th{
 
 .totalPrice{
     border-top: 2px solid #fff;
-    bottom: -2.5rem;
+    /* bottom: -2.5rem; */
     margin-top: 10px;
-    padding-left: 84.85%;
-    position: absolute;
-    right: 0;
+    /* padding-left: 84.85%; */
+    /* position: absolute; */
+    /* right: 0; */
     text-align: right;
-    width: 14.9%;
+    /* width: 14.9%; */
 }
 
 .noOrderFound{

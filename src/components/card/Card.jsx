@@ -113,7 +113,7 @@ function Card({product, visiblePage, quantity}){
                         <p>{product.title}</p>
                     </div>
                     <div className={styles.productPrice}>
-                        <p>&#x20b9; {product.price}</p>
+                        <p>&#36; {product.price}</p>
                         {visiblePage==="cart"&&
                         <div className={styles.productQuntityContainer}>
                           <img  src="https://cdn-icons-png.flaticon.com/128/11519/11519974.png"

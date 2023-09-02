@@ -63,16 +63,21 @@ function MyOrders(){
                                     order.items.map((item)=>(
                                     <tr key={item.docId}>
                                         <td>{item.title}</td>
-                                        <td>&#x20b9; {item.price}</td>
+                                        <td>&#36; {item.price}</td>
                                         <td>{item.quantity}</td>
-                                        <td>&#x20b9; {item.totalCartPrice}</td>
+                                        <td>&#36; {item.totalCartPrice}</td>
                                     </tr>
                                     ))
                                 }
-                                <tr className={styles.totalPrice}>
-                                    <td>&#x20b9; {order.totalOrderAmount}</td>
-                                </tr>
+                                {/* <tr className={styles.totalPrice}>
+                                    <td>&#36; {order.totalOrderAmount}</td>
+                                </tr> */}
                             </tbody>
+                            <tfoot>
+                                <tr className={styles.totalPrice}>
+                                    <td colSpan="4">&#x20b9; {order.totalOrderAmount}</td>
+                                </tr>
+                            </tfoot>
                             
                         </table>
                     </div>

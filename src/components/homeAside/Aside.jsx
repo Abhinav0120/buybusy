@@ -11,7 +11,7 @@ function Aside({
             <aside className={styles.filterContainer}>
                 <h2>Filter</h2>
                 <form>
-                    <label htmlFor="price">&#x20b9; {priceFilter}</label>
+                    <label htmlFor="price">&#36; {priceFilter}</label>
                     <input  type="range" 
                             id="price" 
                             name="price" 

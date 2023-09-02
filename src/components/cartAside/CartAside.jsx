@@ -43,7 +43,7 @@ function CartAside({cart, totalPrice}){
     return (
         <>
             <aside className={styles.cartAsideContainer}>
-                <p className={styles.price}>TotalPrice:- &#x20b9; {totalPrice}/-</p>
+                <p className={styles.price}>TotalPrice:- &#36; {totalPrice}/-</p>
                 <Link to="/myorders">
                     <button className={styles.purchaseButton} onClick={handlePurchase}> Purchase </button>
                 </Link>
