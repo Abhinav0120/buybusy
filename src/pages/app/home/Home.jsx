@@ -4,6 +4,8 @@ import Card from "../../../components/card/Card";
 import { useEffect, useState } from "react";
 import { db } from "../../../firebaseInit";
 import { collection, getDocs } from "firebase/firestore";
+import Spinner from 'react-spinner-material';
+import React, { Component } from 'react';
 
 
 function Home({props}){
@@ -18,9 +20,12 @@ function Home({props}){
     });
 
     const [defaultCategoryState, setCategotyState] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);
+
 
     useEffect(()=>{
         async function fetchProducts(){
+            setIsLoading(true);
 
             const newProducts = [];
             const querySnapshot = await getDocs(collection(db, "products"));
@@ -30,6 +35,8 @@ function Home({props}){
                 // console.log(doc.id, " => ", doc.data());
             });
             setProduct(newProducts);
+            setIsLoading(false);
+
         }
         fetchProducts();
     },[]);
@@ -122,11 +129,18 @@ function Home({props}){
                             className={styles.homePageSearchInput}
                             onChange={handleNameInputChange}/>
             </form>
-            <div className={styles.productList}>
-                {
-                    filteredProducts.map((product)=><Card product={product} key={product.docId} visiblePage="home"/>)
-                }
-            </div>
+            {
+                isLoading?
+                <div className={styles.snipperStyle}>
+                    <Spinner radius={100} color={"#333"} stroke={4} visible={true} />
+                </div>:
+                <div className={styles.productList}>
+                    {
+                        filteredProducts.map((product)=><Card product={product} key={product.docId} visiblePage="home"/>)
+                    }
+                </div>
+            }
+            
         </div>
           
         </>

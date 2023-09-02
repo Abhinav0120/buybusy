@@ -18,7 +18,8 @@ import { collection, doc, onSnapshot, setDoc } from "firebase/firestore";
 function App() {
   const {currentUser} = useAuthContext();
   const [cart, setCart] = useState([]);
-    const [totalPrice, setTotalPrice] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
+
 
     useEffect(()=>{
         if(currentUser!==null){
