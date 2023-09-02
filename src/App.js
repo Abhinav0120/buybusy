@@ -15,6 +15,10 @@ import { useEffect, useState } from "react";
 import { collection, doc, onSnapshot, setDoc } from "firebase/firestore";
 // import { db } from "../../../firebaseInit";
 
+import React from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function App() {
   const {currentUser} = useAuthContext();
   const [cart, setCart] = useState([]);
@@ -81,7 +85,8 @@ function App() {
   ])
   return (
     <div className="App">
-     <RouterProvider router={browserRouter}/>
+      <ToastContainer />
+      <RouterProvider router={browserRouter}/>
     </div>
   );
 }

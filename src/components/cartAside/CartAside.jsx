@@ -4,6 +4,8 @@ import styles from "./CartAside.module.css";
 import { db } from "../../firebaseInit";
 import useAuthContext from "../../context/AuthContext";
 import { Link } from "react-router-dom";
+import {toast} from "react-toastify";
+
 
 
 function CartAside({cart, totalPrice}){
@@ -31,10 +33,12 @@ function CartAside({cart, totalPrice}){
         // Clear the user's cart in the "carts" collection
         const cartRef = doc(db, "carts", currentUser.uid);
         await deleteDoc(cartRef);
-    
-        console.log("Order placed successfully!");
+
+            toast("Order placed successfully !");
+            console.log("Order placed successfully!");
         } catch (error) {
-        console.error("Error placing order:", error);
+            toast("Error placing order !");
+            console.error("Error placing order:", error);
         }
     };
   

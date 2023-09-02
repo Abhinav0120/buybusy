@@ -3,6 +3,7 @@ import useAuthContext from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { doc, setDoc, updateDoc, getDoc } from "firebase/firestore";
 import { db } from "../../firebaseInit"; 
+import {toast} from "react-toastify";
 
 
 function Card({product, visiblePage, quantity}){
@@ -73,10 +74,14 @@ function Card({product, visiblePage, quantity}){
               const updatedItems = [...cartData.items, { product, quantity: 1 }];
               await setDoc(cartRef, { items: updatedItems, totalPrice: cartData.totalPrice + product.price }, { merge: true });
           }
+
+          toast("Product added to cart. !");
   
           console.log("Product added to cart.");
       } catch (error) {
-          console.error("Error adding product to cart:", error);
+            toast("Error adding product to cart");
+
+            console.error("Error adding product to cart:", error);
       }
     };  
   
@@ -127,29 +132,32 @@ function Card({product, visiblePage, quantity}){
     // } 
 
     const handleRemoveFromCart = async (product) => {
-      if (currentUser === null) {
-          navigate("/login");
-          return;
-      }
+    if (currentUser === null) {
+        navigate("/login");
+        return;
+    }
+
+    try {
+        const cartRef = doc(db, "carts", currentUser.uid);
+        const cartSnapshot = await getDoc(cartRef);
   
-      try {
-          const cartRef = doc(db, "carts", currentUser.uid);
-          const cartSnapshot = await getDoc(cartRef);
-  
-          if (cartSnapshot.exists()) {
-              const cartData = cartSnapshot.data();
-              const updatedItems = cartData.items.filter(item => item.product.id !== product.id);
-              let newTotalPrice = parseFloat((cartData.totalPrice - (product.price * (cartData.items.find(item => item.product.id === product.id)?.quantity || 0))).toFixed(2));
-              if(newTotalPrice<0){
-                newTotalPrice = 0;
-              }
-              await setDoc(cartRef, { items: updatedItems, totalPrice: newTotalPrice }, { merge: true });
-  
-              console.log("Product removed from cart.");
-          }
-      } catch (error) {
-          console.error("Error removing product from cart:", error);
-      }
+        if (cartSnapshot.exists()) {
+            const cartData = cartSnapshot.data();
+            const updatedItems = cartData.items.filter(item => item.product.id !== product.id);
+            let newTotalPrice = parseFloat((cartData.totalPrice - (product.price * (cartData.items.find(item => item.product.id === product.id)?.quantity || 0))).toFixed(2));
+            if(newTotalPrice<0){
+            newTotalPrice = 0;
+            }
+            await setDoc(cartRef, { items: updatedItems, totalPrice: newTotalPrice }, { merge: true });
+
+            toast("Product removed from cart. !");
+
+            console.log("Product removed from cart.");
+        }
+    } catch (error) {
+        toast("Error removing product from cart !");
+        console.error("Error removing product from cart:", error);
+    }
   };
   
   const handleDecreaseQuntity = async (product) => {
